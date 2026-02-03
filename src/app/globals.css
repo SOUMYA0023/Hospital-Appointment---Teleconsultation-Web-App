@@ -14,8 +14,8 @@
     --popover: 0 0% 100%;
     --popover-foreground: 222 47% 11%;
 
-    --primary: 199 89% 48%;
-    /* Medical Blue/Cyan */
+    --primary: 204 94% 35%;
+    /* Medical Blue - more professional */
     --primary-foreground: 210 40% 98%;
 
     --secondary: 210 40% 96.1%;
@@ -24,7 +24,7 @@
     --muted: 210 40% 96.1%;
     --muted-foreground: 215.4 16.3% 46.9%;
 
-    --accent: 199 89% 94%;
+    --accent: 204 94% 94%;
     /* Light accent derived from primary */
     --accent-foreground: 222 47% 11.2%;
 
@@ -33,9 +33,16 @@
 
     --border: 214.3 31.8% 91.4%;
     --input: 214.3 31.8% 91.4%;
-    --ring: 199 89% 48%;
+    --ring: 204 94% 35%;
+    /* Match primary */
 
     --radius: 0.75rem;
+    
+    /* Additional medical-grade colors */
+    --success: 142 76% 36%; /* Green for success */
+    --warning: 38 92% 50%; /* Amber for warnings */
+    --info: 204 94% 35%; /* Blue for info */
+    --critical: 0 84.2% 60.2%; /* Red for critical alerts */
   }
 
   .dark {
@@ -48,7 +55,7 @@
     --popover: 222 47% 11%;
     --popover-foreground: 210 40% 98%;
 
-    --primary: 199 89% 48%;
+    --primary: 204 94% 65%;
     --primary-foreground: 222 47% 11.2%;
 
     --secondary: 217.2 32.6% 17.5%;
@@ -65,7 +72,14 @@
 
     --border: 217.2 32.6% 17.5%;
     --input: 217.2 32.6% 17.5%;
-    --ring: 199 89% 48%;
+    --ring: 204 94% 65%;
+    /* Match primary */
+    
+    /* Dark mode additional colors */
+    --success: 142 76% 65%; /* Green for success */
+    --warning: 38 92% 65%; /* Amber for warnings */
+    --info: 204 94% 65%; /* Blue for info */
+    --critical: 0 84.2% 50%; /* Red for critical alerts */
   }
 }
 
@@ -76,12 +90,12 @@
 
   body {
     @apply bg-background text-foreground antialiased;
-    /* Premium Mesh Gradient Background */
+    /* Professional Medical Background */
     background-image:
-      radial-gradient(at 0% 0%, hsla(199, 89%, 96%, 1) 0px, transparent 50%),
-      radial-gradient(at 100% 0%, hsla(210, 100%, 96%, 1) 0px, transparent 50%),
-      radial-gradient(at 100% 100%, hsla(199, 89%, 96%, 1) 0px, transparent 50%),
-      radial-gradient(at 0% 100%, hsla(210, 100%, 96%, 1) 0px, transparent 50%);
+      radial-gradient(at 0% 0%, hsla(204, 94%, 96%, 0.8) 0px, transparent 50%),
+      radial-gradient(at 100% 0%, hsla(210, 100%, 96%, 0.8) 0px, transparent 50%),
+      radial-gradient(at 100% 100%, hsla(204, 94%, 96%, 0.8) 0px, transparent 50%),
+      radial-gradient(at 0% 100%, hsla(210, 100%, 96%, 0.8) 0px, transparent 50%);
     background-attachment: fixed;
   }
 }
@@ -97,4 +111,59 @@
 
 .glass-card {
   @apply bg-white/50 backdrop-blur-sm border border-white/30 shadow-sm hover:shadow-md transition-all duration-300;
+}
+
+/* Medical-grade UI Utilities */
+.medical-card {
+  @apply bg-white border border-gray-200 rounded-xl shadow-sm transition-all duration-200 hover:shadow-md;
+}
+
+.medical-badge {
+  @apply inline-flex items-center rounded-full px-3 py-1 text-xs font-semibold transition-colors focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2;
+}
+
+.medical-status-normal {
+  @apply medical-badge bg-green-100 text-green-800 border-green-200;
+}
+
+.medical-status-warning {
+  @apply medical-badge bg-amber-100 text-amber-800 border-amber-200;
+}
+
+.medical-status-critical {
+  @apply medical-badge bg-red-100 text-red-800 border-red-200;
+}
+
+.medical-status-info {
+  @apply medical-badge bg-blue-100 text-blue-800 border-blue-200;
+}
+
+/* Accessibility Enhancements */
+.focus-outline {
+  @apply focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2;
+}
+
+/* Animation utilities for medical UI */
+.fade-in {
+  animation: fadeIn 0.3s ease-in-out;
+}
+
+.slide-up {
+  animation: slideUp 0.3s ease-out;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+@keyframes slideUp {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
