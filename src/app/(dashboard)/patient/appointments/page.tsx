@@ -4,13 +4,16 @@ import { Button } from "@/components/ui/button"
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
 import { Calendar, Clock, MapPin, Video } from "lucide-react"
+import Link from "next/link"
 
 export default function AppointmentsPage() {
     return (
         <div className="flex flex-col gap-6">
             <div className="flex items-center justify-between">
                 <h2 className="text-3xl font-bold tracking-tight text-primary">Appointments</h2>
-                <Button>Book New Appointment</Button>
+                <Link href="/patient/appointments/book">
+                    <Button>Book New Appointment</Button>
+                </Link>
             </div>
 
             <Tabs defaultValue="upcoming" className="w-full">

@@ -23,14 +23,16 @@ export function ChatWindow({ chatId, title }: ChatWindowProps) {
                 <div className="flex items-center gap-3">
                     <div className="relative">
                         <Avatar>
-                            <AvatarFallback className="bg-primary text-primary-foreground">Dr</AvatarFallback>
+                            <AvatarFallback className="bg-primary text-primary-foreground">
+                                {title.split(' ').map(n => n[0]).join('')}
+                            </AvatarFallback>
                         </Avatar>
                         {isConnected && <span className="absolute bottom-0 right-0 h-3 w-3 rounded-full bg-green-500 border-2 border-background" />}
                     </div>
                     <div>
                         <CardTitle className="text-base">{title}</CardTitle>
                         <p className="text-xs text-muted-foreground flex items-center gap-1">
-                            {isConnected ? <span className="text-green-600">Active Session</span> : <span className="flex items-center gap-1">Connecting <Loader2 className="h-3 w-3 animate-spin" /></span>}
+                            {isConnected ? <span className="text-green-600">Connected</span> : <span className="flex items-center gap-1">Connecting <Loader2 className="h-3 w-3 animate-spin" /></span>}
                         </p>
                     </div>
                 </div>

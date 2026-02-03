@@ -2,6 +2,7 @@
 
 import { useState, useEffect, useRef } from "react"
 import { useAuth } from "@/features/auth/auth-context"
+import { getWebSocketProvider } from "@/lib/websocket-provider";
 
 export interface Message {
     id: string
@@ -17,28 +18,78 @@ export function useChat(chatId: string) {
     const [messages, setMessages] = useState<Message[]>([])
     const [inputText, setInputText] = useState("")
     const [isConnected, setIsConnected] = useState(false)
-
-    // Simulate connection delay
+    const [wsProvider, setWsProvider] = useState<any>(null);
+    
     useEffect(() => {
-        const timer = setTimeout(() => setIsConnected(true), 1500)
-
-        // Add initial system message
-        setMessages([
-            {
-                id: "sys-1",
-                senderId: "system",
-                senderName: "System",
-                text: "consultation session started. All messages are encrypted.",
-                timestamp: new Date(),
-                isSystem: true
+        // Initialize WebSocket connection
+        const wsUrl = `${process.env.NEXT_PUBLIC_WEBSOCKET_URL || 'ws://localhost:8080'}/chat/${chatId}`;
+        const provider = getWebSocketProvider(wsUrl);
+        
+        setWsProvider(provider);
+        
+        // Connect to WebSocket
+        const connect = async () => {
+            try {
+                await provider.connect();
+                setIsConnected(true);
+                
+                // Add initial system message
+                setMessages([
+                    {
+                        id: "sys-1",
+                        senderId: "system",
+                        senderName: "System",
+                        text: "Consultation session started. All messages are encrypted.",
+                        timestamp: new Date(),
+                        isSystem: true
+                    }
+                ]);
+                
+                // Subscribe to messages
+                const unsubscribe = provider.subscribe((data) => {
+                    if (data.type === 'message') {
+                        const newMessage: Message = {
+                            id: data.id,
+                            senderId: data.senderId,
+                            senderName: data.senderName,
+                            text: data.text,
+                            timestamp: new Date(data.timestamp),
+                        };
+                        setMessages(prev => [...prev, newMessage]);
+                    } else if (data.type === 'system') {
+                        const systemMessage: Message = {
+                            id: `sys-${Date.now()}`,
+                            senderId: "system",
+                            senderName: "System",
+                            text: data.message,
+                            timestamp: new Date(),
+                            isSystem: true
+                        };
+                        setMessages(prev => [...prev, systemMessage]);
+                    } else if (data.type === 'typing') {
+                        // Handle typing indicators if needed
+                        console.log(data.message);
+                    }
+                });
+                
+                return unsubscribe;
+            } catch (error) {
+                console.error('Failed to connect to WebSocket:', error);
             }
-        ])
-
-        return () => clearTimeout(timer)
-    }, [chatId])
+        };
+        
+        connect();
+        
+        // Cleanup on unmount
+        return () => {
+            if (provider) {
+                provider.disconnect();
+            }
+        };
+    }, [chatId]);
 
     const sendMessage = () => {
-        if (!inputText.trim() || !user) return
+        if (!inputText.trim() || !user || !wsProvider) return;
 
         const newMessage: Message = {
             id: Date.now().toString(),
@@ -46,23 +97,23 @@ export function useChat(chatId: string) {
             senderName: user.name,
             text: inputText,
             timestamp: new Date(),
-        }
+        };
 
-        setMessages((prev) => [...prev, newMessage])
-        setInputText("")
-
-        // Mock auto-reply
-        setTimeout(() => {
-            const reply: Message = {
-                id: (Date.now() + 1).toString(),
-                senderId: "other",
-                senderName: user.role === "patient" ? "Dr. Sarah Smith" : "John Doe",
-                text: "I received your message. Let me check that for you.",
-                timestamp: new Date()
-            }
-            setMessages((prev) => [...prev, reply])
-        }, 2000)
-    }
+        // Optimistically add the message to the UI
+        setMessages((prev) => [...prev, newMessage]);
+        setInputText("");
+        
+        // Send the message via WebSocket
+        wsProvider.send({
+            type: 'message',
+            id: newMessage.id,
+            chatId,
+            senderId: user.id,
+            senderName: user.name,
+            text: inputText,
+            timestamp: newMessage.timestamp.toISOString()
+        });
+    };
 
     return {
         messages,
@@ -71,5 +122,5 @@ export function useChat(chatId: string) {
         sendMessage,
         isConnected,
         user
-    }
+    };
 }
