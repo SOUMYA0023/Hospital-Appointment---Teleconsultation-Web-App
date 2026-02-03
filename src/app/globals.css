@@ -167,3 +167,190 @@
     transform: translateY(0);
   }
 }
+
+/* Additional Medical UI Components */
+.medical-progress-bar {
+  @apply h-2 w-full rounded-full bg-gray-200 overflow-hidden;
+}
+
+.medical-progress-fill {
+  @apply h-full rounded-full transition-all duration-300 ease-out;
+  background: linear-gradient(90deg, var(--primary), var(--success));
+}
+
+.medical-stat-card {
+  @apply bg-white border border-gray-200 rounded-xl p-6 shadow-sm hover:shadow-md transition-shadow duration-200;
+}
+
+.medical-stat-value {
+  @apply text-3xl font-bold text-gray-900;
+}
+
+.medical-stat-label {
+  @apply text-sm font-medium text-gray-500 mt-1;
+}
+
+/* Patient Status Indicators */
+.patient-status-active {
+  @apply inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-green-100 text-green-800;
+}
+
+.patient-status-pending {
+  @apply inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-yellow-100 text-yellow-800;
+}
+
+.patient-status-inactive {
+  @apply inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-gray-100 text-gray-800;
+}
+
+/* Doctor Availability Status */
+.doctor-available {
+  @apply inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-green-100 text-green-800;
+}
+
+.doctor-busy {
+  @apply inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-red-100 text-red-800;
+}
+
+.doctor-away {
+  @apply inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-yellow-100 text-yellow-800;
+}
+
+/* Appointment Status Badges */
+.appointment-scheduled {
+  @apply medical-badge bg-blue-100 text-blue-800 border-blue-200;
+}
+
+.appointment-confirmed {
+  @apply medical-badge bg-green-100 text-green-800 border-green-200;
+}
+
+.appointment-completed {
+  @apply medical-badge bg-gray-100 text-gray-800 border-gray-200;
+}
+
+.appointment-cancelled {
+  @apply medical-badge bg-red-100 text-red-800 border-red-200;
+}
+
+/* Test Result Status */
+.test-result-normal {
+  @apply medical-badge bg-green-100 text-green-800 border-green-200;
+}
+
+.test-result-abnormal {
+  @apply medical-badge bg-yellow-100 text-yellow-800 border-yellow-200;
+}
+
+.test-result-critical {
+  @apply medical-badge bg-red-100 text-red-800 border-red-200;
+}
+
+/* Medical Icon Styles */
+.medical-icon-primary {
+  @apply text-primary hover:text-primary/80 transition-colors;
+}
+
+.medical-icon-success {
+  @apply text-green-600 hover:text-green-700 transition-colors;
+}
+
+.medical-icon-warning {
+  @apply text-yellow-600 hover:text-yellow-700 transition-colors;
+}
+
+.medical-icon-danger {
+  @apply text-red-600 hover:text-red-700 transition-colors;
+}
+
+/* Loading States for Medical UI */
+.medical-loading {
+  @apply animate-pulse bg-gray-200 rounded;
+}
+
+.medical-skeleton {
+  @apply bg-gray-200 rounded animate-pulse;
+}
+
+/* Form Styles for Medical Applications */
+.medical-input {
+  @apply block w-full rounded-md border border-gray-300 px-3 py-2 shadow-sm focus:border-primary focus:ring-primary focus:ring-1 sm:text-sm;
+}
+
+.medical-textarea {
+  @apply block w-full rounded-md border border-gray-300 px-3 py-2 shadow-sm focus:border-primary focus:ring-primary focus:ring-1 sm:text-sm;
+}
+
+/* Button Variants for Medical Context */
+.btn-medical-primary {
+  @apply inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md shadow-sm text-white bg-primary hover:bg-primary/90 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary transition-colors;
+}
+
+.btn-medical-secondary {
+  @apply inline-flex items-center px-4 py-2 border border-gray-300 text-sm font-medium rounded-md shadow-sm text-gray-700 bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary transition-colors;
+}
+
+.btn-medical-danger {
+  @apply inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md shadow-sm text-white bg-red-600 hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-red-500 transition-colors;
+}
+
+/* Medical Alert Styles */
+.medical-alert {
+  @apply rounded-lg p-4;
+}
+
+.medical-alert-info {
+  @apply medical-alert bg-blue-50 border border-blue-200;
+}
+
+.medical-alert-success {
+  @apply medical-alert bg-green-50 border border-green-200;
+}
+
+.medical-alert-warning {
+  @apply medical-alert bg-yellow-50 border border-yellow-200;
+}
+
+.medical-alert-danger {
+  @apply medical-alert bg-red-50 border border-red-200;
+}
+
+.medical-alert-title {
+  @apply text-sm font-medium;
+}
+
+.medical-alert-info .medical-alert-title {
+  @apply text-blue-800;
+}
+
+.medical-alert-success .medical-alert-title {
+  @apply text-green-800;
+}
+
+.medical-alert-warning .medical-alert-title {
+  @apply text-yellow-800;
+}
+
+.medical-alert-danger .medical-alert-title {
+  @apply text-red-800;
+}
+
+.medical-alert-description {
+  @apply mt-1 text-sm;
+}
+
+.medical-alert-info .medical-alert-description {
+  @apply text-blue-700;
+}
+
+.medical-alert-success .medical-alert-description {
+  @apply text-green-700;
+}
+
+.medical-alert-warning .medical-alert-description {
+  @apply text-yellow-700;
+}
+
+.medical-alert-danger .medical-alert-description {
+  @apply text-red-700;
+}

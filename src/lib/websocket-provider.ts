@@ -106,26 +106,4 @@ export const getWebSocketProvider = (url: string): WebSocketProvider => {
     websocketProvider = new WebSocketProvider(url);
   }
   return websocketProvider;
-};}
-}
-
-// Create a singleton instance for the app
-let websocketProvider: WebSocketProvider | null = null;
-
-export const getWebSocketProvider = (url: string): WebSocketProvider => {
-  if (!websocketProvider) {
-    websocketProvider = new WebSocketProvider(url);
-  }
-  return websocketProvider;
-};}
-}
-
-// Create a singleton instance for the app
-let websocketProvider: WebSocketProvider | null = null;
-
-export const getWebSocketProvider = (url: string): WebSocketProvider => {
-  if (!websocketProvider) {
-    websocketProvider = new WebSocketProvider(url);
-  }
-  return websocketProvider;
 };
