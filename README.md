@@ -1,36 +1,68 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Hospital Appointment & Teleconsultation Web App
+
+A role-based hospital UI built with Next.js App Router, Tailwind CSS, and a set of reusable medical UI components. The app ships with mock services so you can explore the full frontend without standing up a backend.
+
+## Highlights
+- Role-based dashboards for patients, doctors, receptionists, and lab technicians
+- Appointment scheduling, teleconsultation chat, medical records, and lab reporting views
+- Patient registration and queue management flows
+- Mock data services to make the UI feel live during development
+
+## Routes
+- `/` - role selection / login
+- Patient
+  - `/patient`
+  - `/patient/appointments`
+  - `/patient/records`
+  - `/patient/messages`
+  - `/patient/profile`
+- Doctor
+  - `/doctor`
+  - `/doctor/schedule`
+  - `/doctor/patients`
+  - `/doctor/messages`
+  - `/doctor/profile`
+- Receptionist
+  - `/receptionist`
+  - `/receptionist/appointments`
+  - `/receptionist/registration`
+  - `/receptionist/queue`
+- Lab Technician
+  - `/lab`
+  - `/lab/requests`
+  - `/lab/reports`
+  - `/lab/profile`
+
+## Tech Stack
+- [Next.js](https://nextjs.org) 14 (App Router)
+- React 18
+- Tailwind CSS + Radix UI primitives
+- shadcn/ui component patterns
+- lucide-react icons
+- date-fns + react-day-picker
 
 ## Getting Started
+1. Install dependencies
+   ```bash
+   npm install
+   ```
+2. Run the dev server
+   ```bash
+   npm run dev
+   ```
+3. Open `http://localhost:3000`
 
-First, run the development server:
+## Environment Variables
+- `NEXT_PUBLIC_WEBSOCKET_URL` (optional) - WebSocket endpoint for chat. Defaults to `ws://localhost:8080` for demo purposes.
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+## Project Structure
+- `src/app` - App Router routes and layouts
+- `src/components` - UI components (cards, layouts, chat, appointments, etc.)
+- `src/features` - feature-level modules (auth, etc.)
+- `src/hooks` - shared hooks
+- `src/lib` - mock services + utilities
+- `src/types` - shared TypeScript types
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
-
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
-
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
-
-## Learn More
-
-To learn more about Next.js, take a look at the following resources:
-
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+## Notes
+- Demo data is provided by in-memory services in `src/lib`.
+- To reset the mock login, clear `localStorage` key `medicare_user` and refresh.
