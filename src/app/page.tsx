@@ -1,6 +1,7 @@
 'use client';
 
-import React, { useState } from 'react';
+import React, { useEffect } from 'react';
+import { useRouter } from 'next/navigation';
 import { useAuth } from '@/features/auth/auth-context';
 import { Role } from '@/components/shared/Sidebar';
 import { Button } from '@/components/ui/button';
@@ -17,6 +18,14 @@ import {
 
 export default function HospitalApp() {
   const { user, login, isLoading } = useAuth();
+  const router = useRouter();
+
+  useEffect(() => {
+    if (!isLoading && user) {
+      const target = user.role === 'lab_technician' ? '/lab' : `/${user.role}`;
+      router.replace(target);
+    }
+  }, [isLoading, router, user]);
 
   // Login screen
   const renderLoginScreen = () => (
@@ -124,9 +133,15 @@ export default function HospitalApp() {
 
   // Redirect to appropriate dashboard
   if (user) {
-    // This will be handled by the layout system
-    // The user will be redirected to their role-specific dashboard
-    return null;
+    return (
+      <div className="flex items-center justify-center min-h-screen bg-gradient-to-br from-blue-50 to-indigo-100">
+        <div className="text-center">
+          <div className="animate-spin rounded-full h-16 w-16 border-t-4 border-b-4 border-primary mx-auto mb-4"></div>
+          <p className="text-lg font-medium text-gray-700">Redirecting to your dashboard...</p>
+          <p className="text-sm text-gray-500 mt-2">Preparing your personalized workspace</p>
+        </div>
+      </div>
+    );
   }
 
   return renderLoginScreen();

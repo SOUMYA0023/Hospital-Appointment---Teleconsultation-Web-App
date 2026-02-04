@@ -61,7 +61,7 @@ export default function ProtectedRoute({
               </Button>
               <Button 
                 variant="outline" 
-                onClick={() => router.push('/login')}
+                onClick={() => router.push('/')}
                 className="w-full"
               >
                 Sign In
